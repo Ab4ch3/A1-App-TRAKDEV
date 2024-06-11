@@ -11,6 +11,8 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
+  console.log(configService.get('PROPERTY_1'));
+
   //Cors
   app.enableCors(CORS);
 
