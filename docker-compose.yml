@@ -1,15 +1,28 @@
-version: '3.1'
-#falta aprenderlo bien
+version: '3.9'
+
 services:
-  codrr_pg:
-    image: postgres
-    container_name: codrr_pg
+  db:
+    image: postgres:latest
     restart: always
-    environment:
-      POSTGRES_DB: codrrdb
-      POSTGRES_USER: ucodrr
-      POSTGRES_PASSWORD: secret1234
+    container_name: postgres_container
+    hostname: myhost
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
     volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - './db:/var/lib/postgresql/data'
+      - './db/init.sql:/docker-entrypoint-initdb.d/init.sql'
     ports:
-      - 5433:5432
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: Ab4ch3
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: trak_db
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+# /var/www/html/LocalDev/A1-app-trakdev/db
+# db
